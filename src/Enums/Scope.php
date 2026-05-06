@@ -13,7 +13,7 @@ enum Scope: string
     public static function format(array $scopes): string
     {
         return implode(' ', array_map(
-            static fn (self $scope): string => $scope->value,
+            static fn(self $scope): string => $scope->value,
             $scopes,
         ));
     }

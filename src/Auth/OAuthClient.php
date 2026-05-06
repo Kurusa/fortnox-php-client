@@ -14,7 +14,8 @@ final readonly class OAuthClient
     public function __construct(
         private FortnoxConfig $config,
         private FortnoxAuthHttpClient $client,
-    ) {
+    )
+    {
     }
 
     /**
@@ -25,7 +26,8 @@ final readonly class OAuthClient
         string $state,
         AccessType $accessType = AccessType::Offline,
         ?string $accountType = null,
-    ): AuthorizationUrl {
+    ): AuthorizationUrl
+    {
         $query = array_filter([
             'client_id' => $this->config->clientId,
             'redirect_uri' => $this->config->redirectUri,
@@ -34,7 +36,7 @@ final readonly class OAuthClient
             'access_type' => $accessType->value,
             'response_type' => 'code',
             'account_type' => $accountType,
-        ], static fn ($value): bool => $value !== null);
+        ], static fn($value): bool => $value !== null);
 
         return new AuthorizationUrl(
             value: sprintf(

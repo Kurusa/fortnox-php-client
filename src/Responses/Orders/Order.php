@@ -6,7 +6,7 @@ final readonly class Order
 {
     /**
      * @param OrderRow[] $orderRows
-     * @param string[]   $labels
+     * @param string[] $labels
      */
     public function __construct(
         public string $documentNumber,

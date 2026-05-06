@@ -38,7 +38,8 @@ final class Fortnox
         private readonly FortnoxConfig $config,
         private readonly TokenStoreInterface $tokenStore,
         private readonly array $resourceMap = [],
-    ) {
+    )
+    {
         $this->httpClient = new Client([
             'timeout' => 30,
         ]);

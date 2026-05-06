@@ -11,7 +11,8 @@ readonly class FortnoxAuthHttpClient
     public function __construct(
         private FortnoxConfig $config,
         private Client $httpClient,
-    ) {
+    )
+    {
     }
 
     public function token(array $formParams): OAuthToken
@@ -26,7 +27,7 @@ readonly class FortnoxAuthHttpClient
         ]);
 
         return OAuthToken::fromArray(
-            json_decode((string) $response->getBody(), true, flags: JSON_THROW_ON_ERROR),
+            json_decode((string)$response->getBody(), true, flags: JSON_THROW_ON_ERROR),
         );
     }
 }
