@@ -3,22 +3,43 @@
 namespace Kurusa\Fortnox\Resources;
 
 use Kurusa\Fortnox\Data\Orders\CreateOrderData;
-use Kurusa\Fortnox\ValueObjects\FortnoxResponse;
+use Kurusa\Fortnox\Responses\Orders\OrderResponse;
+use Kurusa\Fortnox\Responses\Orders\OrdersResponse;
 
 final readonly class OrdersResource extends Resource
 {
-    public function list(array $query = []): FortnoxResponse
+    public function list(array $query = []): OrdersResponse
     {
-        return $this->client->get('orders', $query);
+        $raw = $this->client->get('orders', $query);
+
+        return OrdersResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
-    public function getByDocumentNumber(string $documentNumber): FortnoxResponse
+    public function getByDocumentNumber(string $documentNumber): OrderResponse
     {
-        return $this->client->get(sprintf('orders/%s', $documentNumber));
+        $raw = $this->client->get(sprintf('orders/%s', $documentNumber));
+
+        return OrderResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
-    public function create(CreateOrderData $data): FortnoxResponse
+    public function create(CreateOrderData $data): OrderResponse
     {
-        return $this->client->post('orders', $data->toArray());
+        $raw = $this->client->post('orders', $data->toArray());
+
+        return OrderResponse::fromRawResponse($raw->statusCode, $raw->data);
+    }
+
+    public function update(string $documentNumber, array $payload): OrderResponse
+    {
+        $raw = $this->client->put(sprintf('orders/%s', $documentNumber), $payload);
+
+        return OrderResponse::fromRawResponse($raw->statusCode, $raw->data);
+    }
+
+    public function createInvoice(string $documentNumber): OrderResponse
+    {
+        $raw = $this->client->put(sprintf('orders/%s/createinvoice', $documentNumber));
+
+        return OrderResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 }

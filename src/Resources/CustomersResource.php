@@ -4,32 +4,38 @@ namespace Kurusa\Fortnox\Resources;
 
 use Kurusa\Fortnox\Data\Customers\CreateCustomerData;
 use Kurusa\Fortnox\Data\Customers\UpdateCustomerData;
-use Kurusa\Fortnox\ValueObjects\FortnoxResponse;
+use Kurusa\Fortnox\Responses\Customers\CustomerResponse;
 
 final readonly class CustomersResource extends Resource
 {
-    public function list(array $query = []): FortnoxResponse
+    public function list(array $query = []): array
     {
-        return $this->client->get('customers', $query);
+        return $this->client->get('customers', $query)->data;
     }
 
-    public function getByNumber(string $customerNumber): FortnoxResponse
+    public function getByNumber(string $customerNumber): CustomerResponse
     {
-        return $this->client->get(sprintf('customers/%s', $customerNumber));
+        $raw = $this->client->get(sprintf('customers/%s', $customerNumber));
+
+        return CustomerResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
-    public function create(CreateCustomerData $data): FortnoxResponse
+    public function create(CreateCustomerData $data): CustomerResponse
     {
-        return $this->client->post('customers', $data->toArray());
+        $raw = $this->client->post('customers', $data->toArray());
+
+        return CustomerResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
-    public function update(string $customerNumber, UpdateCustomerData $data): FortnoxResponse
+    public function update(string $customerNumber, UpdateCustomerData $data): CustomerResponse
     {
-        return $this->client->put(sprintf('customers/%s', $customerNumber), $data->toArray());
+        $raw = $this->client->put(sprintf('customers/%s', $customerNumber), $data->toArray());
+
+        return CustomerResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
-    public function deleteByNumber(string $customerNumber): FortnoxResponse
+    public function deleteByNumber(string $customerNumber): bool
     {
-        return $this->client->delete(sprintf('customers/%s', $customerNumber));
+        return $this->client->delete(sprintf('customers/%s', $customerNumber))->successful();
     }
 }
