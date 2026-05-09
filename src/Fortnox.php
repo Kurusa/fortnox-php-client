@@ -10,6 +10,7 @@ use Kurusa\Fortnox\Config\ResourceRegistry;
 use Kurusa\Fortnox\Contracts\TokenStoreInterface;
 use Kurusa\Fortnox\Http\FortnoxAuthHttpClient;
 use Kurusa\Fortnox\Http\FortnoxHttpClient;
+use Kurusa\Fortnox\Resources\AccountsResource;
 use Kurusa\Fortnox\Resources\ArticlesResource;
 use Kurusa\Fortnox\Resources\CompanyInformationResource;
 use Kurusa\Fortnox\Resources\CustomersResource;
@@ -23,6 +24,7 @@ use Kurusa\Fortnox\Resources\Resource;
  * @method CustomersResource customers()
  * @method InvoicesResource invoices()
  * @method OrdersResource orders()
+ * @method AccountsResource accounts()
  */
 final class Fortnox
 {
