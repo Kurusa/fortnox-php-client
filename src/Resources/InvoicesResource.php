@@ -4,12 +4,15 @@ namespace Kurusa\Fortnox\Resources;
 
 use Kurusa\Fortnox\Data\Invoices\CreateInvoiceData;
 use Kurusa\Fortnox\Responses\Invoices\InvoiceResponse;
+use Kurusa\Fortnox\Responses\Invoices\InvoicesResponse;
 
 final readonly class InvoicesResource extends Resource
 {
-    public function list(array $query = []): array
+    public function list(array $query = []): InvoicesResponse
     {
-        return $this->client->get('invoices', $query)->data;
+        $raw = $this->client->get('invoices', $query);
+
+        return InvoicesResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
     public function getByDocumentNumber(string $documentNumber): InvoiceResponse

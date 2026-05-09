@@ -2,12 +2,14 @@
 
 namespace Kurusa\Fortnox\Resources;
 
-use Kurusa\Fortnox\ValueObjects\FortnoxResponse;
+use Kurusa\Fortnox\Responses\CompanyInformation\CompanyInformationResponse;
 
 final readonly class CompanyInformationResource extends Resource
 {
-    public function get(): FortnoxResponse
+    public function get(): CompanyInformationResponse
     {
-        return $this->client->get('companyinformation');
+        $raw = $this->client->get('companyinformation');
+
+        return CompanyInformationResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 }

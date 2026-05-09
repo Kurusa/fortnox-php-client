@@ -5,12 +5,15 @@ namespace Kurusa\Fortnox\Resources;
 use Kurusa\Fortnox\Data\Customers\CreateCustomerData;
 use Kurusa\Fortnox\Data\Customers\UpdateCustomerData;
 use Kurusa\Fortnox\Responses\Customers\CustomerResponse;
+use Kurusa\Fortnox\Responses\Customers\CustomersResponse;
 
 final readonly class CustomersResource extends Resource
 {
-    public function list(array $query = []): array
+    public function list(array $query = []): CustomersResponse
     {
-        return $this->client->get('customers', $query)->data;
+        $raw = $this->client->get('customers', $query);
+
+        return CustomersResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
     public function getByNumber(string $customerNumber): CustomerResponse

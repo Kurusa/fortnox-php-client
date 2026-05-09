@@ -5,12 +5,15 @@ namespace Kurusa\Fortnox\Resources;
 use Kurusa\Fortnox\Data\Articles\CreateArticleData;
 use Kurusa\Fortnox\Data\Articles\UpdateArticleData;
 use Kurusa\Fortnox\Responses\Articles\ArticleResponse;
+use Kurusa\Fortnox\Responses\Articles\ArticlesResponse;
 
 final readonly class ArticlesResource extends Resource
 {
-    public function list(array $query = []): array
+    public function list(array $query = []): ArticlesResponse
     {
-        return $this->client->get('articles', $query)->data;
+        $raw = $this->client->get('articles', $query);
+
+        return ArticlesResponse::fromRawResponse($raw->statusCode, $raw->data);
     }
 
     public function getByNumber(string $articleNumber): ArticleResponse
