@@ -9,6 +9,7 @@ enum Scope: string
     case Customer = 'customer';
     case Invoice = 'invoice';
     case Order = 'order';
+    case Account = 'account';
 
     public static function format(array $scopes): string
     {

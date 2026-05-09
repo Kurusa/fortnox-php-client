@@ -2,6 +2,7 @@
 
 namespace Kurusa\Fortnox\Config;
 
+use Kurusa\Fortnox\Resources\AccountsResource;
 use Kurusa\Fortnox\Resources\ArticlesResource;
 use Kurusa\Fortnox\Resources\CompanyInformationResource;
 use Kurusa\Fortnox\Resources\CustomersResource;
@@ -18,6 +19,7 @@ final readonly class ResourceRegistry
             'customers' => CustomersResource::class,
             'invoices' => InvoicesResource::class,
             'orders' => OrdersResource::class,
+            'accounts' => AccountsResource::class,
         ];
     }
 }
