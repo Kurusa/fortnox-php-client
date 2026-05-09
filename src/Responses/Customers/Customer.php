@@ -20,6 +20,7 @@ final readonly class Customer
         public ?string $deliveryAddress2,
         public ?string $deliveryZipCode,
         public ?string $deliveryCity,
+        public ?string $yourReference,
     )
     {
     }
@@ -42,6 +43,7 @@ final readonly class Customer
             deliveryAddress2: $data['DeliveryAddress2'] ?? null,
             deliveryZipCode: $data['DeliveryZipCode'] ?? null,
             deliveryCity: $data['DeliveryCity'] ?? null,
+            yourReference: $data['YourReference'] ?? null,
         );
     }
 }
